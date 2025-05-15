@@ -1,1 +1,237 @@
+/* Custom styles for Social Media Video Downloader PWA */
+
+/* Mobile and PWA specific styles */
+:root {
+    --app-primary: #0f3460;
+    --app-secondary: #e94560;
+    --app-dark: #1a1a2e;
+    --app-light: #f0f0f0;
+}
+
+/* Improve scroll feel on mobile */
+html {
+    scroll-behavior: smooth;
+    height: -webkit-fill-available;
+}
+
+body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+    touch-action: manipulation; /* Optimize for touch */
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight */
+    overscroll-behavior-y: contain; /* Prevent scroll bounce */
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+/* For PWA installed mode */
+@media all and (display-mode: standalone) {
+    body {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: calc(env(safe-area-inset-bottom) + 0.5rem);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+    }
+    
+    /* Hide browser-specific elements when running as PWA */
+    .navbar-brand:before {
+        content: '📱 ';
+    }
+}
+
+.video-thumbnail {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.video-thumbnail img {
+    width: 100%;
+    transition: transform 0.3s ease;
+}
+
+.video-thumbnail:hover img {
+    transform: scale(1.05);
+}
+
+#download-btn {
+    transition: all 0.3s ease;
+}
+
+#download-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+    .video-thumbnail {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+}
+
+/* Make spacing more consistent */
+.card {
+    margin-bottom: 1.5rem;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-header {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Animation for loading spinner */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.spinner-border {
+    animation: spin 1.2s linear infinite;
+}
+
+/* Highlight download complete section */
+#download-complete {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Download button pulse effect */
+#download-link {
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+#download-link:hover {
+    animation: none;
+    transform: scale(1.05);
+}
+
+/* Platform badge styling */
+#platform-badge .badge {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.6rem;
+    margin-bottom: 0.75rem;
+}
+
+/* Platform-specific styling */
+.platform-icon {
+    margin-right: 0.5rem;
+}
+
+.youtube-color {
+    color: #FF0000;
+}
+
+.instagram-color {
+    color: #E1306C;
+}
+
+.facebook-color {
+    color: #4267B2;
+}
+
+.twitter-color {
+    color: #1DA1F2;
+}
+
+.tiktok-color {
+    color: #000000;
+}
+
+.reddit-color {
+    color: #FF4500;
+}
+
+/* Mobile-optimized UI elements */
+@media (max-width: 767.98px) {
+    /* Larger touch targets for mobile */
+    .btn {
+        padding: 0.6rem 1rem;
+        font-size: 1.1rem;
+    }
+    
+    /* Improved form elements for mobile */
+    input[type="text"],
+    input[type="url"],
+    select,
+    textarea {
+        font-size: 16px !important; /* Prevent iOS zoom on focus */
+        padding: 0.75rem !important;
+    }
+    
+    /* Better spacing in mobile view */
+    .card-body {
+        padding: 1.25rem;
+    }
+    
+    /* Format buttons are easier to tap */
+    #formats-container .btn {
+        margin-bottom: 0.75rem;
+        padding: 0.75rem;
+        display: flex;
+        align-items: center;
+    }
+    
+    /* Full-width buttons on mobile */
+    .btn-group-vertical {
+        width: 100%;
+    }
+    
+    /* Improve navbar on mobile */
+    .navbar-brand {
+        font-size: 1.3rem;
+    }
+    
+    /* Make footer stay at bottom even with little content */
+    main {
+        min-height: calc(100vh - 180px);
+    }
+}
+
+/* Improved installation banner styling */
+#install-container {
+    border-top: 3px solid var(--app-secondary);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+}
+
+#install-app {
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Make the download button more prominent */
+.btn-primary {
+    background-color: var(--app-primary);
+    border-color: var(--app-primary);
+    font-weight: bold;
+}
+
+.btn-success {
+    background-color: var(--app-secondary);
+    border-color: var(--app-secondary);
+    font-weight: bold;
+}
 
