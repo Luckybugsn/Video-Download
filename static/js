@@ -1,1 +1,56 @@
+// PWA functionality for Video Downloader
 
+// Register service worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/static/js/service-worker.js')
+      .then(registration => {
+        console.log('Service Worker registered successfully:', registration.scope);
+      })
+      .catch(error => {
+        console.log('Service Worker registration failed:', error);
+      });
+  });
+}
+
+// Install prompt
+let deferredPrompt;
+const installButton = document.getElementById('install-app');
+const installContainer = document.getElementById('install-container');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevent Chrome 67 and earlier from automatically showing the prompt
+  e.preventDefault();
+  // Store the event so it can be triggered later
+  deferredPrompt = e;
+  // Show the install button
+  if (installContainer) {
+    installContainer.classList.remove('d-none');
+  }
+});
+
+// Handle install button click
+if (installButton) {
+  installButton.addEventListener('click', async () => {
+    if (!deferredPrompt) {
+      return;
+    }
+    // Show the install prompt
+    deferredPrompt.prompt();
+    // Wait for the user to respond to the prompt
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`User ${outcome} the installation`);
+    // Clear the deferredPrompt variable
+    deferredPrompt = null;
+    // Hide the install button
+    installContainer.classList.add('d-none');
+  });
+}
+
+// Hide install button when PWA is already installed
+window.addEventListener('appinstalled', () => {
+  if (installContainer) {
+    installContainer.classList.add('d-none');
+  }
+  console.log('PWA was installed');
+});
